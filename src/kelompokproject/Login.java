@@ -144,7 +144,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username, password, query, fname = null, passDB = null;
         String SUrl, SUser, SPass;
-        SUrl = "jdbc:MySQL://localhost:3306/nutrigo";
+        SUrl = "jdbc:MySQL://localhost:3306/homepage";
         SUser = "root";
         SPass = "";
         int notFound = 0;
@@ -162,7 +162,7 @@ public class Login extends javax.swing.JFrame {
             username = uname.getText();
             password = pw.getText();
             
-            query = "SELECT * FROM registnutrigo WHERE username= '"+username+"'";
+            query = "SELECT * FROM register WHERE username= '"+username+"'";
        
             ResultSet rs = st.executeQuery(query);
             while(rs.next()){
