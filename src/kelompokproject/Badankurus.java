@@ -46,7 +46,6 @@ public class Badankurus extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(360, 460));
 
         jPanel1.setBackground(new java.awt.Color(91, 196, 108));
         jPanel1.setPreferredSize(new java.awt.Dimension(360, 460));
