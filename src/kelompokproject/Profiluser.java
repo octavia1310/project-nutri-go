@@ -3,6 +3,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.sql.Statement;
+import java.sql.ResultSet;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -38,7 +40,7 @@ public class Profiluser extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         Alamat = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        NoHp = new javax.swing.JTextField();
+        umur = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         TB = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -67,19 +69,13 @@ public class Profiluser extends javax.swing.JFrame {
 
         jLabel4.setText("Alamat");
 
-        Alamat.setForeground(new java.awt.Color(255, 255, 89));
+        Alamat.setForeground(new java.awt.Color(51, 51, 51));
 
-        jLabel5.setText("No Hp");
-
-        NoHp.setForeground(new java.awt.Color(255, 255, 89));
+        jLabel5.setText("Umur");
 
         jLabel6.setText("TB");
 
-        TB.setForeground(new java.awt.Color(255, 255, 89));
-
         jLabel7.setText("BB");
-
-        BB.setForeground(new java.awt.Color(255, 255, 89));
 
         jButton1.setBackground(new java.awt.Color(51, 153, 255));
         jButton1.setText("Save");
@@ -159,7 +155,7 @@ public class Profiluser extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(Alamat, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                                 .addComponent(TB)
-                                .addComponent(NoHp)
+                                .addComponent(umur)
                                 .addComponent(BB))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(60, 60, 60)
@@ -189,7 +185,7 @@ public class Profiluser extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(NoHp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(umur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,7 +207,7 @@ public class Profiluser extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,16 +223,29 @@ public class Profiluser extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    String simpan = "INSERT INTO dataprofil (nama, alamat, no_hp, tb, bb) VALUES (?,?,?,?,?)";
+    String simpan = "INSERT INTO dataprofil (nama, alamat, umur, tb, bb) VALUES (?,?,?,?,?)";
         try {
-            PreparedStatement st = konek.prepareStatement(simpan);
+            PreparedStatement st = konek.prepareStatement(simpan, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, Nama.getText());
             st.setString(2, Alamat.getText());
-            st.setString(3, NoHp.getText());
+            st.setString(3, umur.getText());
             st.setString(4, TB.getText());
             st.setString(5, BB.getText());
             st.executeUpdate();
+            
             JOptionPane.showMessageDialog(null, "Data anda berhasil disimpan");
+            
+            ResultSet rs = st.getGeneratedKeys();
+            int idUser = -1;
+            if (rs.next()) {
+            idUser = rs.getInt(1);
+    }
+            String namaUser = Nama.getText();
+            String umurUser = umur.getText();
+
+           Kegiatan kegiatanForm = new Kegiatan(idUser, namaUser, umurUser);
+           kegiatanForm.setVisible(true);
+ this.dispose();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Data gagal disimpan: " + ex.getMessage());
         }
@@ -256,7 +265,7 @@ public class Profiluser extends javax.swing.JFrame {
         // TODO add your handling code here:
         Nama.setText("");
         Alamat.setText("");
-        NoHp.setText("");
+        umur.setText("");
         TB.setText("");
         BB.setText("");
         jButton2.setOpaque(true);
@@ -303,7 +312,6 @@ public class Profiluser extends javax.swing.JFrame {
     private javax.swing.JTextField Alamat;
     private javax.swing.JTextField BB;
     private javax.swing.JTextField Nama;
-    private javax.swing.JTextField NoHp;
     private javax.swing.JTextField TB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -318,5 +326,6 @@ public class Profiluser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField umur;
     // End of variables declaration//GEN-END:variables
 }

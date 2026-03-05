@@ -11,12 +11,13 @@ import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author Tinkpad
  */
 public class Register extends javax.swing.JFrame {
-
     /**
      * Creates new form Register
      */
@@ -166,7 +167,7 @@ public class Register extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton3)
-                .addGap(129, 129, 129))
+                .addGap(138, 138, 138))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,15 +217,24 @@ public class Register extends javax.swing.JFrame {
     private void RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterActionPerformed
         // TODO add your handling code here:
         
-        String firstname, lastname, username, password, query;
+        String first_name, last_name, username, password, query;
         String SUrl, SUser, SPass;
-        SUrl = "jdbc:MySQL://localhost:3306/homepage";
+        SUrl = "jdbc:MySQL://localhost:3306/profilbaru";
         SUser = "root";
         SPass = "";
+        
+        
         try {
+            
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
             Statement st = con.createStatement();
+            
+            ResultSet rs = st.executeQuery("SELECT * FROM register WHERE username = '" + uname + "'");
+            if (rs.next()) {
+            JOptionPane.showMessageDialog(null, "Username sudah digunakan. Silakan pilih yang lain.");
+            return; // hentikan proses register
+}
             if("".equals(fname.getText())){
                 JOptionPane.showMessageDialog(new JFrame(), "Full Name is require", "Error",
                         JOptionPane.ERROR_MESSAGE);
@@ -243,11 +253,10 @@ public class Register extends javax.swing.JFrame {
             lastname   = lname.getText();
             username = uname.getText();
             password = passw.getText();
-            System.out.println(passw);
+            System.out.println(passw.getText());
             
-            query = "INSERT INTO register(first_name, last_name, username, password)"+
-                    "VALUES('"+firstname+"', '"+lastname+"' , '"+username+"', '"+password+"')";
-            
+            query = "INSERT INTO register (first_name, last_name, username, password) " +
+            "VALUES ('"+firstname+"', '"+lastname+"', '"+username+"', '"+password+"')";
             st.execute(query);
             fname.setText("");
             lname.setText("");

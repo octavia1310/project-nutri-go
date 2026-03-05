@@ -5,6 +5,7 @@
 package kelompokproject;
 
 import java.sql.Connection;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -142,9 +143,10 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
         String username, password, query, fname = null, passDB = null;
         String SUrl, SUser, SPass;
-        SUrl = "jdbc:MySQL://localhost:3306/homepage";
+        SUrl = "jdbc:MySQL://localhost:3306/profilbaru";
         SUser = "root";
         SPass = "";
         int notFound = 0;
@@ -188,9 +190,6 @@ public class Login extends javax.swing.JFrame {
            System.out.println("Error!" + e.getMessage()); 
         }
             
-            
-                                            
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void pwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwActionPerformed

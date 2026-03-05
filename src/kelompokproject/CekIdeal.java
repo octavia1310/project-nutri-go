@@ -224,29 +224,21 @@ public class CekIdeal extends javax.swing.JFrame {
         if(bmi <= 18.5)
         {
             jTextField3.setOpaque(true);
-            jTextField3.setBackground(Color.blue);
-            jLabel5.setForeground(Color.blue);
             jLabel5.setText("BB kurang");
         }
         else if(bmi <= 24.5)
         {
             jTextField3.setOpaque(true);
-            jTextField3.setBackground(Color.green);
-            jLabel5.setForeground(Color.green);
             jLabel5.setText("BB Normal"); 
         }
          else if (bmi <= 29.5)
         {
             jTextField3.setOpaque(true);
-            jTextField3.setBackground(Color.orange);
-            jLabel5.setForeground(Color.orange);
             jLabel5.setText("BB Over Weight"); 
         }
          else if(bmi >= 30)
         {
             jTextField3.setOpaque(true);
-            jTextField3.setBackground(Color.red);
-            jLabel5.setForeground(Color.red);
             jLabel5.setText("BB Obesitas"); 
         }
          
